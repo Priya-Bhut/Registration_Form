@@ -1,0 +1,21 @@
+#main {
+  width: 400px;
+  font-family: "Segoe UI", sans-serif;
+
+  border-radius: 25px;
+  border: 1px solid #302d2d;
+  margin-top: 250px;
+  background: rgb(191, 192, 187);
+}
+
+.details h1 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+h2 {
+  color: rgb(126, 91, 85);
+}
