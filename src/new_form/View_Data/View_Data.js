@@ -24,5 +24,4 @@ function View_Data(props) {
     </div>
   );
 }
-
 export default View_Data;

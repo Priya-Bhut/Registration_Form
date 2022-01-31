@@ -14,7 +14,6 @@ class RegisterForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.submitUserForm = this.submitUserForm.bind(this);
   }
-
   handleChange(e) {
     let fields = this.state.fields;
     e.target.type === "file"
@@ -26,9 +25,10 @@ class RegisterForm extends React.Component {
   }
 
   submitUserForm(e) {
-    if (this.validateForm()) {
-      this.setState({ show: !this.state.show });
-    }
+    // if (this.validateForm()) {
+    //   this.setState({ show: !this.state.show });
+    // }
+    this.validateForm();
     e.preventDefault();
   }
 
@@ -37,7 +37,7 @@ class RegisterForm extends React.Component {
     let errors = {};
     let formIsValid = true;
 
-    if (typeof fields["firstName"] !== "undefined") {
+    if (fields["firstName"]) {
       if (!fields["firstName"].match(/^[a-zA-Z ]*$/)) {
         formIsValid = false;
         errors["firstName"] = "*Please enter alphabet characters only.";
@@ -46,8 +46,7 @@ class RegisterForm extends React.Component {
         errors["firstName"] = "*Please enter only up to 20 chracter.";
       }
     }
-
-    if (typeof fields["lastName"] !== "undefined") {
+    if (fields["lastName"]) {
       if (!fields["lastName"].match(/^[a-zA-Z ]*$/)) {
         formIsValid = false;
         errors["lastName"] = "*Please enter alphabet characters only.";
@@ -57,14 +56,14 @@ class RegisterForm extends React.Component {
       }
     }
 
-    if (typeof fields["age"] !== "undefined") {
+    if (fields["age"]) {
       if (!fields["age"].match(/^([0-9]{2}|100)$/)) {
         formIsValid = false;
         errors["age"] = "*Please enter valid age.";
       }
     }
 
-    if (typeof fields["address"] !== "undefined") {
+    if (fields["address"]) {
       if (!fields["address"].match(/^([a-zA-z0-9/\\' '(),-\s]{2,10})$/)) {
         formIsValid = false;
         errors["address"] = "*Please enter address up to 240 characters.";
@@ -72,11 +71,19 @@ class RegisterForm extends React.Component {
     }
     this.setState({
       errors: errors,
+      show: !formIsValid,
     });
-    return formIsValid;
+    // return formIsValid;
   }
   render() {
-    const { firstName, lastName, age, address, inputFile } = this.state.fields;
+    const { fields, errors } = this.state;
+    const { firstName, lastName, age, address } = fields || {};
+    const {
+      firstName: fnameErrorMsg,
+      lastName: lnameErrorMsg,
+      age: ageErrorMsg,
+      address: addressErrorMsg,
+    } = errors || {};
 
     return (
       <div>
@@ -98,7 +105,7 @@ class RegisterForm extends React.Component {
                     onChange={this.handleChange}
                   />
                   <label>FirstName</label>
-                  <div className="errors">{this.state.errors.firstName}</div>
+                  <div className="errors">{fnameErrorMsg}</div>
                 </div>
 
                 <div className="user-box">
@@ -110,7 +117,7 @@ class RegisterForm extends React.Component {
                     onChange={this.handleChange}
                   />
                   <label>LastName</label>
-                  <div className="errors">{this.state.errors.lastName}</div>
+                  <div className="errors">{lnameErrorMsg}</div>
                 </div>
 
                 <div className="user-box">
@@ -122,7 +129,7 @@ class RegisterForm extends React.Component {
                     onChange={this.handleChange}
                   />
                   <label>Age</label>
-                  <div className="errors">{this.state.errors.age}</div>
+                  <div className="errors">{ageErrorMsg}</div>
                 </div>
 
                 <div className="user-box">
@@ -133,7 +140,7 @@ class RegisterForm extends React.Component {
                     onChange={this.handleChange}
                   ></textarea>
                   <label>Address</label>
-                  <div className="errors">{this.state.errors.address}</div>
+                  <div className="errors">{addressErrorMsg}</div>
                 </div>
 
                 <div className="user-box">

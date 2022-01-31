@@ -121,8 +121,8 @@ body {
 }
 
 .errors {
-  color: white;
-  margin-bottom: 20px;
+  color: rgb(221, 0, 0);
+  margin-bottom:20px;
 }
 p {
   color: white;
